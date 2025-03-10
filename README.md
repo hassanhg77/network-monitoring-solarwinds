@@ -1,6 +1,7 @@
 
 ## Overview
 This script demonstrates how to use SNMP to add network devices to SolarWinds for monitoring purposes. 
+This script is typically run on a management device. The management device is usually a server or a workstation that has network access to the devices you want to monitor
 
 ## Explanation
 1. Importing the Library:
