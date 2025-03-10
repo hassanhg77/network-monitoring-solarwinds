@@ -48,7 +48,7 @@ varBinds: Contains the retrieved SNMP data. If no errors occur, it prints the OI
 
    This block runs the add_device function if the script is executed directly. It sets the ip_address and community_string variables and calls the function.
 
-Customization: 
+__Customization__: 
 IP Address: Replace "192.168.1.1" with the IP address of the device you want to monitor.
 Community String: Replace "public" with the appropriate SNMP community string for your network.
 
