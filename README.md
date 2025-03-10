@@ -1,5 +1,3 @@
-# network-monitoring-solarwinds
-This repository contains a Python script to add network devices for monitoring using SNMP.
 
 ## Overview
 This script demonstrates how to use SNMP to add network devices to SolarWinds for monitoring purposes. 
