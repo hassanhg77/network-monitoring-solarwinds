@@ -4,51 +4,19 @@ This script demonstrates how to use SNMP to add network devices to SolarWinds fo
 This script is typically run on a management device. The management device is usually a server or a workstation that has network access to the devices you want to monitor
 
 ## Explanation
-1. Importing the Library:
-"from pysnmp.hlapi import *"
-This line imports all necessary functions from the pysnmp.hlapi module, which provides high-level SNMP operations.
+Verify SNMP Connectivity:
+The verify_snmp function checks if the device is reachable via SNMP and retrieves the sysDescr OID.
 
-2. Defining the Function
-"def add_device(ip, community):"
-This defines a function named add_device that takes two parameters: ip (the IP address of the device) and community (the SNMP community string).
+Add Device to SolarWinds:
+The add_device_to_solarwinds function uses the SolarWinds API to add the device.
+It constructs the necessary data (node_data) and sends a POST request to the SolarWinds API endpoint.
+The requests library is used to make the HTTP request, and HTTPBasicAuth is used for authentication.
 
-3. SNMP Get Command
-"errorIndication, errorStatus, errorIndex, varBinds = next(
-    getCmd(SnmpEngine(),
-           CommunityData(community),
-           UdpTransportTarget((ip, 161)),
-           ContextData(),
-           ObjectType(ObjectIdentity('1.3.6.1.2.1.1.1.0')))) "
+Main Block:
+Replace the placeholders (ip_address, community_string, solarwinds_url, username, password) with your actual values.
+The script first verifies SNMP connectivity and then attempts to add the device to SolarWinds.
 
-SnmpEngine(): Initializes the SNMP engine.
-CommunityData(community): Specifies the community string for SNMP v1/v2c.
-UdpTransportTarget((ip, 161)): Sets the target device’s IP address and port (161 is the default SNMP port).
-ContextData(): Provides context information (empty for SNMP v1/v2c).
-ObjectType(ObjectIdentity('1.3.6.1.2.1.1.1.0')): Specifies the OID (Object Identifier) for the sysDescr object, which contains a description of the device.
-
-4.Error Handling:
-" if errorIndication:
-    print(f"Error: {errorIndication}")
-elif errorStatus:
-    print(f"Error: {errorStatus.prettyPrint()}")
-else:
-    for varBind in varBinds:
-        print(f'{varBind[0]} = {varBind[1]}') "
-        
-errorIndication: Checks for general errors in the SNMP operation.
-errorStatus: Checks for specific errors related to the SNMP request.
-varBinds: Contains the retrieved SNMP data. If no errors occur, it prints the OID and its value.
-
-5. Main Block:
-   " if name == "main":            
-    ip_address = "192.168.1.1"  # Replace with your device's IP address
-    community_string = "public"  # Replace with your SNMP community string
-    add_device(ip_address, community_string) "
-
-   This block runs the add_device function if the script is executed directly. It sets the ip_address and community_string variables and calls the function.
-
-__Customization__: 
-IP Address: Replace "192.168.1.1" with the IP address of the device you want to monitor.
-Community String: Replace "public" with the appropriate SNMP community string for your network.
-
-
+Important Notes
+API Endpoint: Ensure the API endpoint URL is correct for your SolarWinds server.
+Authentication: Use appropriate credentials with sufficient permissions to add devices.
+SSL Verification: The verify=False parameter in the requests.post call disables SSL verification. For production use, consider enabling SSL verification.
