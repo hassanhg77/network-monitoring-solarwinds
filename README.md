@@ -41,7 +41,7 @@ errorStatus: Checks for specific errors related to the SNMP request.
 varBinds: Contains the retrieved SNMP data. If no errors occur, it prints the OID and its value.
 
 5. Main Block:
-   " if __name__ == "__main__":
+   " if name == "main":            
     ip_address = "192.168.1.1"  # Replace with your device's IP address
     community_string = "public"  # Replace with your SNMP community string
     add_device(ip_address, community_string) "
